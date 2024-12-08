@@ -1,0 +1,23 @@
+
+{% extends 'base/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+
+<h2>Последние новости:</h2>
+<ul>
+  {% for news in latest_news %}
+    <li>
+      <p><a href="{% url 'single_news' news.id %}"><h3>{{ news.title }}</h3></a></p>
+      {% if news.image %}
+      <p> <img src="{{ news.image.url }}" alt="{{ news.title }}" style="max-width:600px;"</p>
+      {% endif %}
+      <p>{{ news.content|truncatewords:30 }}</p>
+      <p><strong>Дата публикации:</strong> {{ news.published_date|date:"d M Y" }}</p>
+    </li>
+  {% empty %}
+    <li>Нет новостей.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

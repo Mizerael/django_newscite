@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="../../static/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <nav class="navbar">
+    <div class="nav">
+      <a href="{% url 'home' %}">Главная</a>
+      <a href="{% url 'news_list' %}">Новости</a>
+    </div>
+    <ul class="nav">
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}
+          <a href="{% url 'add_news' %}">Добавить новость</a>
+        {% endif %}
+        <a href="{% url 'profile' %}">Профиль {{ user.username }}</a>
+        <a href="{% url 'logout' %}">Выход</a>
+      {% else %}
+        <a href="{% url 'login' %}">Вход</a>
+        <a href="{% url 'register' %}">Регистрация</a>
+      {% endif %}
+    </ul>
+  </nav>
+  <div class="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div>{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+  <footer>
+    <p>&copy; 2024 aboba. Все права защищены.</p>
+  </footer>
+</body>
+</html>
+
+
+

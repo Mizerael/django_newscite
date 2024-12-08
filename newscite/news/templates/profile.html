@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<h1>Профиль пользователя: {{ user.username }}</h1>
+{% if user.is_staff %}
+  <h2>Ваши новости</h2>
+  <ul>
+    {% for item in news %}
+      <li>
+        <a href="{% url 'single_news' item.id %}">{{ item.title }}</a> - {{ item.published_date|date:"d M Y" }}
+      </li>
+    {% empty %}
+      <li> Новостей нет.</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<h2>Ваши комментарии:</h2>
+<ul>
+  {% for comment in comments %}
+    <li>
+      {{ comment.content }} - <a href="{% url 'single_news' comment.news.id %}">{{ comment.news.title }}</a>
+    </li>
+  {% empty %}
+    <li>Нет комментариев.</li>
+  {% endfor %}
+</ul>
+
+<h2>Сменить пароль:</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Сменить пароль</button>
+</form>
+{% endblock %}

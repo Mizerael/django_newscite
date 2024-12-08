@@ -1,3 +1,3 @@
 # logstream-final
 
-Describe your project here.
+simple solution for task

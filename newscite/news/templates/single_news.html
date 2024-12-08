@@ -1,0 +1,39 @@
+
+{% extends 'base/base.html' %}
+
+{% block title %}{{ news_item.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ news_item.title }}</h1>
+<p><strong>Автор:</strong> {{ news_item.author.username }}</p>
+{% if user == news_item.author %}
+  <a href="{% url 'edit_news' news_item.id %}">Изменить новость</a>
+{% endif %}
+<p><strong>Дата публикации:</strong> {{ news_item.published_date|date:"d M Y" }}</p>
+
+{% if news_item.image %}
+  <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" style="max-width:600px;">
+{% endif %}
+
+<p>{{ news_item.content }}</p>
+
+<h2>Комментарии:</h2>
+{% for comment in comments %}
+  <div>
+    <strong>{{ comment.user.username }}</strong>: {{ comment.content }} <br>
+    <small>{{ comment.created_at|date:"d M Y H:i" }}</small>
+  </div>
+{% empty %}
+  <p>Нет комментариев.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+  <h2>Добавить комментарий:</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Добавить комментарий</button>
+  </form>
+{% endif %}
+<a href="{% url 'news_list' %}">Назад к ленте новостей</a>
+{% endblock %}

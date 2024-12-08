@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}Изменение {{ news_item.title }}{% endblock %}
+
+{% block content %}
+<h1>Редактировать новость: {{ news_item.title }}</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Сохранить изменения</button>
+</form>
+<a href="{% url 'single_news' news_item.id %}">Назад к новости</a>
+{% endblock %}

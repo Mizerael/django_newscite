@@ -1,0 +1,53 @@
+body {
+  font-family: Nerd, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  padding: 20px;
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh; 
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #f1f1f1;
+}
+
+
+.navbar {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  background-color: #322; 
+  padding: 10px; 
+}
+
+
+.nav {
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav li {
+  margin-left: 20px; 
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.nav a:hover {
+  background-color: #556;
+}

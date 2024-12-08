@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Лента новостей{% endblock %}
+
+{% block content %}
+<h1>Лента новостей</h1>
+<form method="get" action="{% url 'news_list' %}">
+    <input type="text" name="q" placeholder="Поиск по заголовку..." value="{{ query }}">
+    <button type="submit">Поиск</button>
+</form>
+<ul>
+  {% for item in news %}
+    <li>
+      <a href="{% url 'single_news' item.id %}">{{ item.title }}</a> - {{ item.published_date|date:"d M Y" }}
+    </li>
+  {% empty %}
+    <li>Нет новостей.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
